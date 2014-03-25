@@ -1,0 +1,98 @@
+<?xml version ='1.0' encoding ='UTF-8' ?>
+<definitions name='desServicesWeb'
+    targetNamespace='http://localhost/WebServicesPHP/'
+    xmlns:tns='http://localhost/WebServicesPHP/'
+    xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/'
+    xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+    xmlns:soapenc='http://schemas.xmlsoap.org/soap/encoding/'
+    xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'
+    xmlns='http://schemas.xmlsoap.org/wsdl/'>
+
+
+ <types>
+     <xsd:schema targetNamespace="http://localhost/WebServicesPHP/">
+      <xsd:complexType name="TypeOrganisme">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int"/>
+          <xsd:element name="intitule" type="xsd:string"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfTypeOrganisme">
+        <xsd:sequence>
+          <xsd:element name="item" type="tns:unTypeOrganisme" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+
+ </types>
+
+
+<message name='getDigicodeRequest'/>
+<message name='getDigicodeResponse'>
+  <part name='returnDigicode' type='xsd:string'/>
+</message>
+
+<message name='getLesTypesOrganismesWSRequest'/>
+<message name='getLesTypesOrganismesWSResponse'>
+  <part name='returnLesTypes' type='tns:ArrayOfTypeOrganisme'/>
+</message>
+
+
+
+
+
+<portType name='desServicesWebPortType'>
+  <operation name='getDigicode'>
+    <input message='tns:getDigicodeRequest'/>
+    <output message='tns:getDigicodeResponse'/>
+  </operation>
+  <operation name='getLesTypesOrganismesWS'>
+    <input message='tns:getLesTypesOrganismesWSRequest'/>
+    <output message='tns:getLesTypesOrganismesWSResponse'/>
+  </operation>
+ 
+</portType>
+
+<binding name='desServicesWebBinding' type='tns:desServicesWebPortType'>
+  <soap:binding style='rpc'
+    transport='http://schemas.xmlsoap.org/soap/http'/>
+    
+    <operation name='getDigicode'>
+      <soap:operation soapAction='urn:MesServices#getDigicode'/>
+
+      <input>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </input>
+      
+      <output>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </output>
+    </operation>
+    <operation name='getLesTypesOrganismesWS'>
+      <soap:operation soapAction='urn:MesServices#getLesTypesOrganismesWS'/>
+
+      <input>
+        <soap:body use='literal' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </input>
+      
+      <output>
+        <soap:body use='literal' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'
+          parts="returnLesTypes" />
+      </output>
+    </operation>
+    
+     
+    
+</binding>
+
+<service name='desServicesWebService'>
+  <port name='desServicesWebPort' binding='desServicesWebBinding'>
+    <soap:address location='http://localhost/WebServicesPHP/MesServices.php'/>
+  </port>
+</service>
+
+</definitions>

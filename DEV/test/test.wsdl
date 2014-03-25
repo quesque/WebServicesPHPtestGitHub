@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by QUESQUE (MALRAUX) -->
+<definitions xmlns:tns="http://localhost/WebServicesPHP/DEV/test
+/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://localhost/WebServicesPHP/DEV/test/" name="desServicesWeb" targetNamespace="http://localhost/WebServicesPHP/DEV/test/">
+	<message name="getTestResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	<portType name="desServicesWebPortType">
+		<operation name="getTest">
+			<output message="ns:getTestResponse"/>
+		</operation>
+	</portType>
+	<binding name="desServicesWebBinding" type="ns:desServicesWebPortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getTest">
+			<soap:operation soapAction="urn:#getTest"/>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</binding>
+	<service name="desServicesWebService">
+		<port name="desServicesWebPort" binding="ns:desServicesWebBinding">
+			<soap:address location="http://localhost/WebServicesPHP/DEV/test/webServicesTEST.php"/>
+		</port>
+	</service>
+</definitions>

@@ -1,0 +1,195 @@
+<?xml version ='1.0' encoding ='UTF-8' ?>
+<definitions name='desServicesWeb'
+    targetNamespace='http://localhost/WebServicesPHP/mrbs/'
+    xmlns:tns='http://localhost/WebServicesPHP/mrbs/'
+    xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/'
+    xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+    xmlns:soapenc='http://schemas.xmlsoap.org/soap/encoding/'
+    xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'
+    xmlns='http://schemas.xmlsoap.org/wsdl/'>
+
+
+ <types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema"
+         targetNamespace="http://localhost/WebServicesPHP/mrbs/"
+         xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+         xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+        <complexType name="typeOrganismeInWSDL">
+                    <sequence>
+                       <element name="id" type="xsd:int"/>
+                       <element name="intitule" type="xsd:string"/>
+                    </sequence>
+        </complexType>
+        <complexType name="ArrayOfTypeOrganisme">
+                    <complexContent>
+                       <restriction base="soapenc:Array">
+                          <attribute ref="soapenc:arrayType" 
+                          wsdl:arrayType="typeOrganismeInWSDL[]"/>
+                       </restriction>
+                    </complexContent>
+        </complexType>
+        <complexType name="OrganismeInWSDL">
+                    <sequence>
+                       <element name="id" type="xsd:int"/>
+                       <element name="intitule" type="xsd:string"/>
+                    </sequence>
+        </complexType>
+        <complexType name="ArrayOfOrganisme">
+                    <complexContent>
+                       <restriction base="soapenc:Array">
+                          <attribute ref="soapenc:arrayType" 
+                          wsdl:arrayType="OrganismeInWSDL[]"/>
+                       </restriction>
+                    </complexContent>
+        </complexType>
+        <complexType name="tableauChaine">
+                    <sequence>
+                       <element name="uneChaine" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                    </sequence>
+        </complexType>
+         <complexType name="ArrayOfstring">
+                    <complexContent>
+                       <restriction base="soapenc:Array">
+                          <attribute ref="soapenc:arrayType" 
+                          wsdl:arrayType="string[]"/>
+                       </restriction>
+                    </complexContent>
+        </complexType>
+        
+        </schema>
+ </types>
+
+
+
+<message name='getDigicodeRequest'/>
+<message name='getDigicodeResponse'>
+  <part name='returnDigicode' type='xsd:string'/>
+</message>
+
+<message name='getLesTypesOrganismesWSRequest'/>
+<message name='getLesTypesOrganismesWSResponse'>
+  <part name='returnLesTypes' type='tns:ArrayOfTypeOrganisme'/>
+</message>
+
+<message name='getLesOrganismesWSRequest'>
+<part name='idOrganisme' type='xsd:int'/>
+</message>
+<message name='getLesOrganismesWSResponse'>
+  <part name='returnLesOrganismes' type='tns:ArrayOfOrganisme'/>
+</message>
+
+<message name='affecteDigicodeWSRequest'>
+<part name='idOrganisme' type='xsd:int'/>
+</message>
+<message name='affecteDigicodeWSResponse'>
+  <part name='returnLesInfos' type='tns:ArrayOfstring'/>
+</message>
+
+<message name='getLesReunionsWSRequest'>
+<part name='idOrganisme' type='xsd:int'/>
+</message>
+<message name='getLesReunionsWSResponse'>
+  <part name='returnLeNbReunion' type='xsd:int'/>
+</message>
+
+<portType name='desServicesWebPortType'>
+  <operation name='getDigicode'>
+    <input message='tns:getDigicodeRequest'/>
+    <output message='tns:getDigicodeResponse'/>
+  </operation>
+  <operation name='getLesTypesOrganismesWS'>
+    <input message='tns:getLesTypesOrganismesWSRequest'/>
+    <output message='tns:getLesTypesOrganismesWSResponse'/>
+  </operation>
+  <operation name='getLesOrganismesWS'>
+    <input message='tns:getLesOrganismesWSRequest'/>
+    <output message='tns:getLesOrganismesWSResponse'/>
+  </operation>
+  <operation name='affecteDigicode'>
+    <input message='tns:affecteDigicodeWSRequest'/>
+    <output message='tns:affecteDigicodeWSResponse'/>
+  </operation>
+  <operation name='getLesReunionsWS'>
+    <input message='tns:getLesReunionsWSRequest'/>
+    <output message='tns:getLesReunionsWSResponse'/>
+  </operation>
+</portType>
+
+<binding name='desServicesWebBinding' type='tns:desServicesWebPortType'>
+  <soap:binding style='rpc'
+    transport='http://schemas.xmlsoap.org/soap/http'/>
+    
+    <operation name='getDigicode'>
+      <soap:operation soapAction='urn:MesServices#getDigicode'/>
+
+      <input>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </input>
+      
+      <output>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </output>
+    </operation>
+    <operation name='getLesTypesOrganismesWS'>
+      <soap:operation soapAction='urn:MesServices#getLesTypesOrganismesWS'/>
+
+      <input>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </input>
+      
+      <output>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </output>
+    </operation>
+     <operation name='getLesOrganismesWS'>
+      <soap:operation soapAction='urn:MesServices#getLesOrganismesWS'/>
+
+      <input>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </input>
+      
+      <output>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </output>
+    </operation>
+    <operation name='affecteDigicode'>
+      <soap:operation soapAction='urn:MesServices#affecteDigicode'/>
+
+      <input>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </input>
+      
+      <output>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </output>
+    </operation>
+     <operation name='getLesReunionsWS'>
+      <soap:operation soapAction='urn:MesServices#getLesReunionsWS'/>
+
+      <input>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </input>
+      
+      <output>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </output>
+    </operation>
+</binding>
+
+<service name='desServicesWebService'>
+  <port name='desServicesWebPort' binding='desServicesWebBinding'>
+    <soap:address location='http://localhost/WebServicesPHP/mrbs/MesServicesOO.php'/>
+  </port>
+</service>
+
+</definitions>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:tns="http://localhost/WebServicesPHP/WebServicesTP01/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="desServicesWeb" targetNamespace="http://localhost/WebServicesPHP/WebServicesTP01/">
+	<message name="getImcRequest">
+		<part name="poids" type="xsd:int"/>
+		<part name="taille" type="xsd:int"/>
+	</message>
+	<message name="getImcResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	<portType name="desServicesWebPortType">
+		<operation name="getImc">
+			<input message="tns:getImcRequest"/>
+			<output message="tns:getImcResponse"/>
+		</operation>
+	</portType>
+	<binding name="desServicesWebBinding" type="tns:desServicesWebPortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="getImc">
+			<soap:operation soapAction="urn:MesServices#getImc"/>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:MesServices"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:MesServices"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="desServicesWebService">
+		<port name="desServicesWebPort" binding="tns:desServicesWebBinding">
+			<soap:address location="http://localhost/WebServicesPHP/WebServicesTP01/webServicesIMC.php"/>
+		</port>
+	</service>
+</definitions>

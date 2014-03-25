@@ -1,0 +1,147 @@
+<?xml version ='1.0' encoding ='UTF-8' ?>
+<definitions name='desServicesWeb'
+    targetNamespace='http://localhost/WebServicesPHP/WebServicesTP01/FichiersFbay/'
+    xmlns:tns='http://localhost/WebServicesPHP/WebServicesTP01/FichiersFbay/'
+    xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/'
+    xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+    xmlns:soapenc='http://schemas.xmlsoap.org/soap/encoding/'
+    xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'
+    xmlns='http://schemas.xmlsoap.org/wsdl/'>
+
+ <types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema"
+         targetNamespace="http://localhost/WebServicesPHP/WebServicesTP01/FichiersFbay/"
+         xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+         xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+        <complexType name="Categorie">
+                    <sequence>
+                       <element name="id" type="xsd:string"/>
+                       <element name="libelle" type="xsd:string"/>
+                    </sequence>
+        </complexType>
+        <complexType name="ArrayOfCategorie">
+                    <complexContent>
+                       <restriction base="soapenc:Array">
+                          <attribute ref="soapenc:arrayType" 
+                          wsdl:arrayType="Categorie[]"/>
+                       </restriction>
+                    </complexContent>
+        </complexType>
+         <complexType name="Objet">
+                    <sequence>
+                       <element name="id" type="xsd:string"/>
+                       <element name="libelle" type="xsd:string"/>
+                    </sequence>
+        </complexType>
+        <complexType name="ArrayOfObjet">
+                    <complexContent>
+                       <restriction base="soapenc:Array">
+                          <attribute ref="soapenc:arrayType" 
+                          wsdl:arrayType="Objet[]"/>
+                       </restriction>
+                    </complexContent>
+        </complexType>
+      </schema>
+ </types>
+
+<message name='getLibCatRequest'>
+    <part name='id' type='xsd:string'/>
+</message> 
+<message name='getLibCatResponse'>
+  <part name='return' type='xsd:string'/>
+</message>
+
+<message name='setCategorieRequest'>
+    <part name='id' type='xsd:string'/>
+    <part name='libelle' type='xsd:string'/>
+</message> 
+<message name='setCategorieResponse' />
+
+<message name='getLesCategoriesRequest' />
+<message name='getLesCategoriesResponse'>
+    <part name='return' type='tns:ArrayOfCategorie'/>
+</message>
+
+<message name='getLesObjetsParCategorieRequest'>
+    <part name='id' type='xsd:string'/>
+</message> 
+<message name='getLesObjetsParCategorieResponse'>
+    <part name='return' type='tns:ArrayOfObjet'/>
+</message>
+
+<portType name='desServicesWebPortType'>
+  <operation name='getLibelleCategorie'>
+    <input message='tns:getLibCatRequest'/>
+    <output message='tns:getLibCatResponse'/>
+  </operation>
+  <operation name='setCategorie'>
+    <input message='tns:setCategorieRequest'/>
+    <output message='tns:setCategorieResponse'/>
+  </operation>
+  <operation name='getLesCategories'>
+    <input message='tns:getLesCategoriesRequest'/>
+    <output message='tns:getLesCategoriesResponse'/>
+  </operation>
+  <operation name='getLesObjetsParCategorie'>
+    <input message='tns:getLesObjetsParCategorieRequest'/>
+    <output message='tns:getLesObjetsParCategorieResponse'/>
+  </operation>
+</portType>
+
+<binding name='desServicesWebBinding' type='tns:desServicesWebPortType'>
+  <soap:binding style='rpc'
+    transport='http://schemas.xmlsoap.org/soap/http'/>
+    
+    <operation name='getLibelleCategorie'>
+      <soap:operation soapAction='urn:MesServices#getLibelleCategorie'/>
+      <input>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </input>
+      <output>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </output>
+    </operation>
+    <operation name='setCategorie'>
+      <soap:operation soapAction='urn:MesServices#setCategorie'/>
+      <input>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </input>
+      <output>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </output>
+    </operation>
+     <operation name='getLesCategories'>
+      <soap:operation soapAction='urn:MesServices#getLesCategories'/>
+      <input>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </input>
+      <output>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </output>
+    </operation>
+    <operation name='getLesObjetsParCategorie'>
+      <soap:operation soapAction='urn:MesServices#getLesObjetsParCategorie'/>
+      <input>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </input>
+      <output>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </output>
+    </operation>
+</binding>
+
+<service name='desServicesWebService'>
+  <port name='desServicesWebPort' binding='desServicesWebBinding'>
+    <soap:address location='http://localhost/WebServicesPHP/WebServicesTP01/FichiersFbay/webServicesFBay.php'/>
+  </port>
+</service>
+
+</definitions>

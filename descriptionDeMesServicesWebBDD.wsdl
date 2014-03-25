@@ -1,0 +1,49 @@
+<?xml version ='1.0' encoding ='UTF-8' ?>
+<definitions name='desServicesWeb'
+    targetNamespace='http://localhost/WebServicesPHP/'
+    xmlns:tns='http://localhost/WebServicesPHP/'
+    xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/'
+    xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+    xmlns:soapenc='http://schemas.xmlsoap.org/soap/encoding/'
+    xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'
+    xmlns='http://schemas.xmlsoap.org/wsdl/'>
+    
+
+<message name='getDigicodeRequest'/>
+<message name='getDigicodeResponse'>
+  <part name='return' type='xsd:string'/>
+</message>
+
+<portType name='desServicesWebPortType'>
+  <operation name='getDigicode'>
+    <input message='tns:getDigicodeRequest'/>
+    <output message='tns:getDigicodeResponse'/>
+  </operation>
+</portType>
+
+<binding name='desServicesWebBinding' type='tns:desServicesWebPortType'>
+  <soap:binding style='rpc'
+    transport='http://schemas.xmlsoap.org/soap/http'/>
+    
+    <operation name='getDigicode'>
+      <soap:operation soapAction='urn:MesServices#getDigicode'/>
+
+      <input>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </input>
+      
+      <output>
+        <soap:body use='encoded' namespace='urn:MesServices'
+          encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/>
+      </output>
+    </operation>
+</binding>
+
+<service name='desServicesWebService'>
+  <port name='desServicesWebPort' binding='desServicesWebBinding'>
+    <soap:address location='http://localhost/WebServicesPHP/MesServices.php'/>
+  </port>
+</service>
+
+</definitions>

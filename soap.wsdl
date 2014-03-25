@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://localhost/WebServicesPHP/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="MesServicesWeb" targetNamespace="http://localhost/WebServicesPHP/">
+  <portType name="DemoApiPortType">
+    
+    <operation name="getLesTypesOrganismesWS">
+      <input message="tns:getLesTypesOrganismesWSRequest"/>
+      <output message="tns:getLesTypesOrganismesWSResponse"/>
+    </operation>
+  </portType>
+  <binding name="DemoApiBinding" type="tns:DemoApiPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+   
+    <operation name="getLesTypesOrganismesWS">
+      <soap:operation soapAction="urn:MesServices#getLesTypesOrganismesWS"/>
+      <input>
+        <soap:body use="literal" namespace="urn:MesServices" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:body use="literal" namespace="urn:MesServices" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" parts="return"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="MesServicesWebService">
+    <port name="MesServicesWebPort" binding="tns:DemoApiBinding">
+      <soap:address location=""/>
+    </port>
+  </service>
+   <types>
+    <xsd:schema targetNamespace="http://mysymfonyapp.com/webservice/">
+      <xsd:complexType name="lesTypesOrganismes">
+        <xsd:all>
+          <xsd:element name="id" type="xsd:int"/>
+          <xsd:element name="intitule" type="xsd:string"/>
+         </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOflesTypesOrganismes">
+        <xsd:sequence>
+          <xsd:element name="item" type="tns:lesTypesOrganismes" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </types>
+ 
+  <message name="getLesTypesOrganismesWSRequest"/>
+  <message name="getLesTypesOrganismesWSResponse">
+    <part name="return" type="tns:ArrayOflesTypesOrganismes"/>
+  </message>
+</definitions>
